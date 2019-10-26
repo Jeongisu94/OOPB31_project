@@ -1,14 +1,10 @@
 #include "MyMessage.h"
 #include "Frame.h"
 #include "Rect.h"
-#include <iostream>
 Frame::Frame(HWND h) {
 	OutputDebugString(L"프레임이 생성됨.\n");
 	hWnd = h;
 	hdc = GetDC(h);
-	//rect[0] = new Rect();
-	
-
 }
 
 void Frame::repaint() {
