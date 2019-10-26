@@ -142,14 +142,26 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
-    case WM_PAINT:
-        {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-            EndPaint(hWnd, &ps);
-        }
-        break;
+	case WM_LBUTTONDOWN: case WM_LBUTTONUP: case WM_LBUTTONDBLCLK:
+	case WM_RBUTTONDOWN: case WM_RBUTTONUP: case WM_RBUTTONDBLCLK:
+	case WM_KEYDOWN: case WM_KEYUP:
+	case WM_CHAR:
+	{
+		// 클래스에서 처리하도록 한다.
+		mainFrame->processMessage(MyMessage(message, wParam, lParam));
+	}
+	break;
+	case WM_PAINT:
+	{
+		PAINTSTRUCT ps;
+		HDC hdc = BeginPaint(hWnd, &ps);
+		// TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+		OutputDebugString(L"그림을 그려야함\n");
+		// MainWindow  객체의 paint 를 호출한다.
+		mainFrame->repaint();
+		EndPaint(hWnd, &ps);
+	}
+		break;
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
