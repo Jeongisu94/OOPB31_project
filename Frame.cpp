@@ -1,18 +1,20 @@
 #include "MyMessage.h"
 #include "Frame.h"
 #include "Rect.h"
-
+#include <iostream>
 Frame::Frame(HWND h) {
 	OutputDebugString(L"프레임이 생성됨.\n");
 	hWnd = h;
 	hdc = GetDC(h);
-	rect = new Rect();
+	//rect[0] = new Rect();
+	
 
 }
 
 void Frame::repaint() {
-
-	::Rectangle(hdc,rect->x1,rect->y1,rect->x2,rect->y2);
+	for (int i = 0; i < num; i++) {
+		::Rectangle(hdc, rect[i]->x1, rect[i]->y1, rect[i]->x2, rect[i]->y2);
+	}
 }
 
 void Frame::processMessage(MyMessage r) {
@@ -22,12 +24,15 @@ void Frame::processMessage(MyMessage r) {
 	switch (r.message)
 	{
 	case WM_LBUTTONDOWN:
-		rect->x1 = LOWORD(r.lParam);
-		rect->y1 = HIWORD(r.lParam);
+		rect[num] = new Rect();
+
+		rect[num]->x1 = LOWORD(r.lParam);
+		rect[num]->y1 = HIWORD(r.lParam);
 			break;
 	case WM_LBUTTONUP:
-		rect->x2 = LOWORD(r.lParam);
-		rect->y2 = HIWORD(r.lParam);
+		rect[num]->x2 = LOWORD(r.lParam);
+		rect[num]->y2 = HIWORD(r.lParam);
+		num++;
 		repaint();
 			break;
 	default:

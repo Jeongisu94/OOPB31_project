@@ -8,7 +8,8 @@ private:
 	HWND hWnd;
 	HDC hdc;
 	MyMessage* m;
-	Rect *rect;
+	Rect *rect[1000];
+	int num = 0;
 public:
 
 
