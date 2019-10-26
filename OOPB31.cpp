@@ -3,14 +3,15 @@
 
 #include "framework.h"
 #include "OOPB31.h"
-
+#include "Frame.h"
+#include "MyMessage.h"
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
-
+Frame* mainFrame;
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
@@ -76,7 +77,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_OOPB31));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_OOPB31);
+	wcex.lpszMenuName = NULL; // MAKEINTRESOURCEW(IDC_OOPB31);
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -125,6 +126,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+	case WM_CREATE:
+		mainFrame = new Frame(hWnd);
+		break;
+
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
@@ -142,6 +147,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+
 	case WM_LBUTTONDOWN: case WM_LBUTTONUP: case WM_LBUTTONDBLCLK:
 	case WM_RBUTTONDOWN: case WM_RBUTTONUP: case WM_RBUTTONDBLCLK:
 	case WM_KEYDOWN: case WM_KEYUP:
@@ -150,7 +156,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		// 클래스에서 처리하도록 한다.
 		mainFrame->processMessage(MyMessage(message, wParam, lParam));
 	}
+
 	break;
+
 	case WM_PAINT:
 	{
 		PAINTSTRUCT ps;

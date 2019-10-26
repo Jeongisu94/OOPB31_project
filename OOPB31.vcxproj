@@ -151,12 +151,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Frame.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="MyMessage.h" />
     <ClInclude Include="OOPB31.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="MyMessage.cpp" />
     <ClCompile Include="OOPB31.cpp" />
   </ItemGroup>
   <ItemGroup>
