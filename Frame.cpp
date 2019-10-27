@@ -1,6 +1,7 @@
 #include "MyMessage.h"
 #include "Frame.h"
 #include "Rect.h"
+#include "Line.h"
 
 Frame::Frame(HWND h) {
 	OutputDebugString(L"프레임이 생성됨.\n");
@@ -10,9 +11,9 @@ Frame::Frame(HWND h) {
 
 void Frame::repaint() {
 	
-	if (rect[0] != NULL) {
+	if (shape[0] != NULL) {
 		for (int i = 0; i < num; i++) {
-			rect[i]->repaint();
+			shape[i]->repaint();
 		}
 	}
 	
@@ -37,7 +38,14 @@ void Frame::processMessage(MyMessage r) {
 	
 		x2 = LOWORD(r.lParam);
 		y2 = HIWORD(r.lParam);
-		rect[num] = new Rect(x1,y1,x2,y2,hdc);
+
+		if ( r.wParam & MK_SHIFT) {
+			OutputDebugString(L"Shift 눌림\n");
+			shape[num] = new Line(x1, y1, x2, y2, hdc);
+		}
+		else {
+			shape[num] = new Rect(x1, y1, x2, y2, hdc);
+		}
 		num++;
 		repaint();
 			

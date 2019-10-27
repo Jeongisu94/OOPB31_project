@@ -1,12 +1,10 @@
 #pragma once
 #include "Shape.h"
 
-class Rect :public Shape{
+class Line : public Shape {
 public:
-
-	Rect(int, int, int, int, HDC);
+	Line(int, int, int, int, HDC);
 
 	virtual void repaint();
-
 };
 
