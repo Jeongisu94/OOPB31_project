@@ -1,6 +1,7 @@
 #include "MyMessage.h"
 #include "Frame.h"
 #include "Rect.h"
+
 Frame::Frame(HWND h) {
 	OutputDebugString(L"프레임이 생성됨.\n");
 	hWnd = h;
@@ -8,29 +9,39 @@ Frame::Frame(HWND h) {
 }
 
 void Frame::repaint() {
-	for (int i = 0; i < num; i++) {
-		::Rectangle(hdc, rect[i]->x1, rect[i]->y1, rect[i]->x2, rect[i]->y2);
+	
+	if (rect[0] != NULL) {
+		for (int i = 0; i < num; i++) {
+			rect[i]->repaint();
+		}
 	}
+	
 }
 
 void Frame::processMessage(MyMessage r) {
-
+	
 	
 	OutputDebugString(L"process Message에서 호출됨\n");
+	
 	switch (r.message)
 	{
 	case WM_LBUTTONDOWN:
-		rect[num] = new Rect();
-
-		rect[num]->x1 = LOWORD(r.lParam);
-		rect[num]->y1 = HIWORD(r.lParam);
-			break;
+	
+		
+		x1 = LOWORD(r.lParam);
+		y1 = HIWORD(r.lParam); 
+		
+		break; 
+	
 	case WM_LBUTTONUP:
-		rect[num]->x2 = LOWORD(r.lParam);
-		rect[num]->y2 = HIWORD(r.lParam);
+	
+		x2 = LOWORD(r.lParam);
+		y2 = HIWORD(r.lParam);
+		rect[num] = new Rect(x1,y1,x2,y2,hdc);
 		num++;
 		repaint();
-			break;
+			
+		break;
 	default:
 		break;
 	}

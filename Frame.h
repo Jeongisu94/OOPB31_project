@@ -10,6 +10,7 @@ private:
 	MyMessage* m;
 	Rect *rect[1000];
 	int num = 0;
+	int x1, y1, x2, y2;
 public:
 
 
