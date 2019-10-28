@@ -164,9 +164,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		PAINTSTRUCT ps;
 		HDC hdc = BeginPaint(hWnd, &ps);
 		// TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-		OutputDebugString(L"그림을 그려야함\n");
+		//OutputDebugString(L"그림을 그려야함\n");
 		// MainWindow  객체의 paint 를 호출한다.
-		mainFrame->repaint();
+		//mainFrame->repaint();
+		mainFrame->processMessage(MyMessage(message, wParam, lParam));
 		EndPaint(hWnd, &ps);
 	}
 		break;
