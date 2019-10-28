@@ -13,6 +13,7 @@ private:
 	Shape *shape[1000];
 	int num = 0;
 	int x1, y1, x2, y2;
+	int numShape = 1; // 모양을 나타내줄 멤버변수 1.사각형 2 원 3 선분
 public:
 
 
