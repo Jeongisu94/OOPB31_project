@@ -11,22 +11,23 @@ Frame::Frame(HWND h) {
 
 void Frame::repaint() {
 	
-	::Rectangle(hdc, 0, 0, 50, 50);
-	TextOut(hdc, 1,15, TEXT("사각형"), 3);
-
-
-	::Rectangle(hdc, 50,0 ,100,50);
-	TextOut(hdc, 65, 15, TEXT("원"), 1);
-
-	::Rectangle(hdc, 100, 0, 150, 50);
-	TextOut(hdc, 110, 15, TEXT("직선"), 2);
-
+	
 
 	if (shape[0] != NULL) {
 		for (int i = 0; i < num; i++) {
 			shape[i]->repaint();
 		}
 	}
+
+	::Rectangle(hdc, 0, 0, 50, 50);
+	TextOut(hdc, 1, 15, TEXT("사각형"), 3);
+
+	::Rectangle(hdc, 50, 0, 100, 50);
+	TextOut(hdc, 65, 15, TEXT("원"), 1);
+
+	::Rectangle(hdc, 100, 0, 150, 50);
+	TextOut(hdc, 110, 15, TEXT("직선"), 2);
+
 	
 }
 
