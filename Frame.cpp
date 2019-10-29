@@ -3,6 +3,8 @@
 #include "Rect.h"
 #include "Line.h" 
 #include "Circle.h"
+#include <stdio.h>
+
 Frame::Frame(HWND h) {
 	OutputDebugString(L"프레임이 생성됨.\n");
 	hWnd = h;
@@ -60,14 +62,14 @@ void Frame::processMessage(MyMessage r) {
 	
 	case WM_LBUTTONUP:
 	
-		//버튼영역 눌렀을 때 그려짐을 방지합니다.
-		if (x1 < 150 && y1 < 50) {
-			break;
-		}
 
 
 		x2 = LOWORD(r.lParam);
 		y2 = HIWORD(r.lParam);
+		//버튼영역 눌렀을 때 그려짐을 방지합니다.
+		if ((x1 < 150 && y1 < 50) || x2 < 150 && y2 < 50) {
+			break;
+		}
 
 		/*if ( r.wParam & MK_SHIFT) {
 			OutputDebugString(L"Shift 눌림\n");
