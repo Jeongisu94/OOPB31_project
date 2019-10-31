@@ -2,10 +2,11 @@
 #include "framework.h"
 class Shape {
 public:
-	int x1, y1, x2, y2; // 시작점과 끝점 좌표
+	int left_, top_, right_, bottom_; // 시작점과 끝점 좌표
 	HDC hdc;
 
-	Shape(int, int, int, int, HDC);
-	virtual void repaint() = 0;
+	Shape(int l, int t, int r, int b , HDC h);
+	virtual bool belongs(int x, int y);
+	virtual void repaint() = 0;// 순수 가상 함수 ;
 };
 
