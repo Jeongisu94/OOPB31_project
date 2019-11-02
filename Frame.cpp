@@ -5,6 +5,8 @@
 #include "Circle.h"
 #include <stdio.h>
 #include "Button.h"
+#include "Toolbar.h"
+
 Frame::Frame(HWND h) {
 	OutputDebugString(L"프레임이 생성됨.\n");
 	hWnd = h;
@@ -13,12 +15,19 @@ Frame::Frame(HWND h) {
 	init();
 }
 
+void Frame::addToolbar(Toolbar*& t) {
+	t = new Toolbar();
+}
+
 void Frame::init() {
-	shape[0] = new Button(0, 0, 50, 50, hdc, "사각형");
-	shape[1] = new Button(50, 0, 100, 50, hdc, "원");
-	shape[2] = new Button(100, 0, 150, 50, hdc, "직선");
-	num = 3;
-	repaint();
+//	toolbar_ = new Toolbar();
+	addToolbar(toolbar_);
+
+	toolbar_->addButton(new Button(0, 0, 50, 50, hdc, "사각형"));
+	toolbar_->addButton(new Button(50, 0, 100, 50, hdc, "원"));
+	toolbar_->addButton(new Button(100, 0, 150, 50, hdc, "직선"));
+
+	repaint(); 
 }
 
 void Frame::repaint() {
@@ -28,17 +37,19 @@ void Frame::repaint() {
 			shape[i]->repaint();
 		}
 	}
+
+	for (int i = 0; i < toolbar_->numButton_; i++) {
+		toolbar_->button_[i]->repaint();
+	}
 }
 
 int Frame::findButton(int x, int y) {
-	for (int i = 0; i < num; i++) {
-		if (shape[i]->belongs(x, y)) {
+	for (int i = 0; i < toolbar_->numButton_; i++) {
+		if (toolbar_->button_[i]->belongs(x, y)) {
 			return i;
 		}
 	} return -1;
 }
-
-
 
 void Frame::processMessage(MyMessage r) {
 
