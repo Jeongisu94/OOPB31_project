@@ -15,13 +15,13 @@ Frame::Frame(HWND h) {
 	init();
 }
 
-void Frame::addToolbar(Toolbar*& t) {
-	t = new Toolbar();
+void Frame::addToolbar(Toolbar* t) {
+	toolbar_ = t;
 }
 
 void Frame::init() {
 //	toolbar_ = new Toolbar();
-	addToolbar(toolbar_);
+	addToolbar(new Toolbar());
 
 	toolbar_->addButton(new Button(0, 0, 50, 50, hdc, "사각형"));
 	toolbar_->addButton(new Button(50, 0, 100, 50, hdc, "원"));
